@@ -37,6 +37,10 @@ h2 {
   padding-top: 1.5rem;
 }
 
+a {
+  text-decoration: none;
+}
+
 .gradient {
   background: linear-gradient(to right, #f7ff00, #db36a4);
 }

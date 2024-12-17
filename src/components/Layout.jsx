@@ -30,6 +30,16 @@ function Layout({ children }) {
         </a>
         .
       </p>
+
+      <br />
+
+      <p>
+        Check out this project on{" "}
+        <a href="https://github.com/ZTNimbus/coffee-tracker" target={"_blank"}>
+          Github
+        </a>
+        .
+      </p>
     </footer>
   );
 
