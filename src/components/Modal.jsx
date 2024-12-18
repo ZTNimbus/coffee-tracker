@@ -1,5 +1,14 @@
-function Modal() {
-  return <div>Modal</div>;
+import ReactDom from "react-dom";
+
+function Modal({ children, handleCloseModal }) {
+  return ReactDom.createPortal(
+    <div className={"modal-container"}>
+      <button className={"modal-underlay"} onClick={handleCloseModal} />
+
+      <div className={"modal-content"}>{children}</div>
+    </div>,
+    document.getElementById("portal")
+  );
 }
 
 export default Modal;

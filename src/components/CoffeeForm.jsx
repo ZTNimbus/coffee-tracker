@@ -1,5 +1,8 @@
+/* eslint-disable react/prop-types */
 import { useState } from "react";
 import { coffeeOptions } from "../utils/index";
+import Modal from "./Modal";
+import Authentication from "./Authentication";
 
 const hoursInDay = [
   0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
@@ -8,15 +11,28 @@ const hoursInDay = [
 
 const mins = [0, 5, 10, 15, 30, 45];
 
-function CoffeeForm() {
+function CoffeeForm({ isAuthenticated }) {
   const [selectedCoffee, setSelectedCoffee] = useState(null);
   const [showOther, setShowOther] = useState(false);
   const [coffeeCost, setCoffeeCost] = useState(0);
   const [hour, setHour] = useState(0);
   const [min, setMin] = useState(0);
+  const [showModal, setShowModal] = useState(false);
+
+  function handleSubmit() {
+    if (!isAuthenticated) return setShowModal(true);
+
+    console.log(selectedCoffee, coffeeCost, hour, min);
+  }
 
   return (
     <>
+      {showModal && (
+        <Modal handleCloseModal={() => setShowModal(false)}>
+          <Authentication />
+        </Modal>
+      )}
+
       <div className={"section-header"}>
         <i className={"fa-solid fa-pencil"} />
         <h2>Start tracking today</h2>
@@ -127,7 +143,7 @@ function CoffeeForm() {
           </select>
         </div>
 
-        <button>Add to track!</button>
+        <button onClick={handleSubmit}>Add to track!</button>
       </div>
     </>
   );

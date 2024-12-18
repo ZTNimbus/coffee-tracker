@@ -1,5 +1,11 @@
+import { useState } from "react";
+import Authentication from "./Authentication";
+import Modal from "./Modal";
+
 /* eslint-disable react/prop-types */
 function Layout({ children }) {
+  const [showModal, setShowModal] = useState(false);
+
   const header = (
     <header>
       <div>
@@ -8,9 +14,9 @@ function Layout({ children }) {
         <p>For Coffee Insatiates</p>
       </div>
 
-      <button>
+      <button onClick={() => setShowModal(true)}>
         <i className="fa-solid fa-mug-hot"></i>
-        Sign up for Free
+        <p>Sign up for Free</p>
       </button>
     </header>
   );
@@ -45,6 +51,11 @@ function Layout({ children }) {
 
   return (
     <>
+      {showModal && (
+        <Modal handleCloseModal={() => setShowModal(false)}>
+          <Authentication />
+        </Modal>
+      )}
       {header}
       <main>{children}</main>
       {footer}
