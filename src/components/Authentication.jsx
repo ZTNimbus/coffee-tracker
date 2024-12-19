@@ -1,12 +1,43 @@
+/* eslint-disable react/prop-types */
 import { useState } from "react";
+import { useAuth } from "../context/AuthContext";
 
-function Authentication() {
+function Authentication({ handleCloseModal }) {
   const [isRegistering, SetIsRegistering] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isAuthenticating, setIsAuthenticating] = useState(false);
+  const [error, setError] = useState(null);
 
-  async function handleAuthenticate() {}
+  const { signup, login } = useAuth();
+
+  async function handleAuthenticate() {
+    if (
+      !email ||
+      !email.includes("@") ||
+      !password ||
+      password.length < 8 ||
+      isAuthenticating
+    )
+      return;
+    try {
+      setIsAuthenticating(true);
+      setError(null);
+
+      if (isRegistering) {
+        await signup(email, password);
+      } else {
+        await login(email, password);
+      }
+
+      handleCloseModal();
+    } catch (error) {
+      console.log(error.message);
+      setError(error.message);
+    } finally {
+      setIsAuthenticating(false);
+    }
+  }
 
   return (
     <>
@@ -14,6 +45,7 @@ function Authentication() {
         {isRegistering ? "Sign up" : "Sign In"}
       </h2>
       <p>{isRegistering ? "Create your account" : "Sign in to your account"}</p>
+      {error && <p>❌ Invalid Credentials</p>}
 
       <input
         type="text"
@@ -29,7 +61,7 @@ function Authentication() {
       />
 
       <button onClick={handleAuthenticate}>
-        <p>Submit</p>
+        <p>{isAuthenticating ? "Authenticating..." : "Submit"}</p>
       </button>
 
       <hr />
