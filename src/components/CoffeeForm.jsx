@@ -35,7 +35,7 @@ function CoffeeForm({ isAuthenticated }) {
       const newData = { name: selectedCoffee, cost: coffeeCost };
 
       const now = Date.now();
-      const timeToSubtract = hour * 60 * 60 * 1000 + min * 60 * 100;
+      const timeToSubtract = hour * 60 * 60 * 1000 + min * 60 * 1000;
       const timestamp = now - timeToSubtract;
 
       newGlobalData[timestamp] = newData;
