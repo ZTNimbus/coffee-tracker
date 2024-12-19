@@ -45,7 +45,6 @@ function CoffeeForm({ isAuthenticated }) {
       const userRef = doc(db, "users", globalUser.uid);
       await setDoc(userRef, { [timestamp]: newData }, { merge: true });
 
-      setSelectedCoffee(null);
       setHour(0);
       setMin(0);
       setCoffeeCost(0);
